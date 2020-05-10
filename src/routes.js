@@ -1,12 +1,31 @@
-const { Router } = require('express');
-const DevController = require('./controllers/DevController');
-const SearchController = require('./controllers/SearchController');
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-const routes = Router();
+import Main from './pages/main';
+import Profile from './pages/profile';
 
-routes.get('/devs', DevController.index);
-routes.post('/devs', DevController.store);
+const Routes = createAppContainer(
+  createStackNavigator({
+    Main: {
+      screen: Main,
+      navigationOptions: {
+        title: 'Liga-Dev.'
+      },
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions:{
+        title: 'Perfil no Github'
+      }
+    },
+  }, {
+    defaultNavigationOptions: {
+      headerTintColor: '#fff',
+      headerStyle: {
+        backgroundColor: '#00f145',
+      },
+    },
+  })
+);
 
-routes.get('/search', SearchController.index);
-
-module.exports = routes;
+export default Routes;
